@@ -51,7 +51,7 @@ export default function Home() {
         data={groups}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <TouchableOpacity style={styles.groupItem} onPress={() => router.push(`/group/${item.id}`)}>
+          <TouchableOpacity style={styles.groupItem} onPress={() => router.push(`/feed/${item.id}` as any)}>
             <Text style={styles.groupName}>{item.name}</Text>
             <Text style={styles.inviteCode}>Invite Code: {item.inviteCode}</Text>
           </TouchableOpacity>

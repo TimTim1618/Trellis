@@ -1,11 +1,12 @@
 import * as ImagePicker from 'expo-image-picker';
-import { useLocalSearchParams } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { addDoc, collection } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import React, { useState } from 'react';
 import { Button, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { db, storage } from '../../config/firebase';
 import { useAuth } from '../../context/AuthContext';
+
 
 export default function GroupScreen() {
   const { id } = useLocalSearchParams();
@@ -71,7 +72,7 @@ export default function GroupScreen() {
 
       setImage(null);
       setReflection('');
-      setError('Posted successfully!');
+      router.push(`/feed/${id}`);
     } catch (e: any) {
       setError(e.message);
     }
@@ -98,6 +99,8 @@ export default function GroupScreen() {
         numberOfLines={4}
       />
       <Button title={posting ? 'Posting...' : 'Post'} onPress={handlePost} disabled={posting} />
+      <Button title="View Feed" onPress={() => router.push(`/feed/${id}`)} />
+      <Button title="View Feed" onPress={() => router.replace('/home')} />
       {error ? <Text style={styles.error}>{error}</Text> : null}
     </View>
   );
