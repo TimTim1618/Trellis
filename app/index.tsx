@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { View, TextInput, Button, Text, StyleSheet } from 'react-native';
+import { router } from 'expo-router';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import React, { useEffect, useState } from 'react';
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import { auth } from '../config/firebase';
 import { useAuth } from '../context/AuthContext';
-import { router } from 'expo-router';
 
 export default function Index() {
   const {user, loading} = useAuth();
@@ -36,7 +36,7 @@ export default function Index() {
     }
   };
 
-  console.log('user:', user, 'loading:', loading);
+  //console.log('user:', user, 'loading:', loading);
 
   return (
     <View style={styles.container}>
