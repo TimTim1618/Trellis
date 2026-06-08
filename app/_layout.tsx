@@ -1,10 +1,10 @@
-import React from 'react';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import React from 'react';
 import 'react-native-reanimated';
-import { useColorScheme } from '../hooks/use-color-scheme';
 import { AuthProvider } from '../context/AuthContext';
+import { useColorScheme } from '../hooks/use-color-scheme';
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -19,6 +19,7 @@ export default function RootLayout() {
           <Stack.Screen name="home" options={{ headerShown: false }} />
           <Stack.Screen name="create-group" options={{ headerShown: false}} />
           <Stack.Screen name="join-group" options={{ headerShown: false}} />
+          <Stack.Screen name="group/[id]" options={{ headerShown: false}} />
         </Stack>
         <StatusBar style="auto" />
       </ThemeProvider>

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Button, FlatList, TouchableOpacity } from 'react-native';
-import { collection, query, where, onSnapshot } from 'firebase/firestore';
-import { useAuth } from '../context/AuthContext';
-import { auth, db } from '../config/firebase';
 import { router } from 'expo-router';
 import { signOut } from 'firebase/auth';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import React, { useEffect, useState } from 'react';
+import { Button, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { auth, db } from '../config/firebase';
+import { useAuth } from '../context/AuthContext';
 
 
 type Group = {
@@ -51,7 +51,7 @@ export default function Home() {
         data={groups}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <TouchableOpacity style={styles.groupItem}>
+          <TouchableOpacity style={styles.groupItem} onPress={() => router.push(`/group/${item.id}`)}>
             <Text style={styles.groupName}>{item.name}</Text>
             <Text style={styles.inviteCode}>Invite Code: {item.inviteCode}</Text>
           </TouchableOpacity>
