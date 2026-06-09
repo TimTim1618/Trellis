@@ -24,10 +24,12 @@ export default function Home() {
 
     const q = query(collection(db, 'groups'), where('members', 'array-contains', user.uid));
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      const groupList = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data() as Omit<Group, 'id'>
-      }));
+      const groupList = snapshot.docs.map((doc) => {
+        console.log('group data:', doc.data());
+        return {
+          id: doc.id,
+          ...doc.data() as Omit<Group, 'id'>
+    }});
       setGroups(groupList);
     });
 

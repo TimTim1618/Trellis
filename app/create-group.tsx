@@ -1,10 +1,10 @@
 
+import { router } from 'expo-router';
+import { addDoc, collection } from 'firebase/firestore';
 import React, { useState } from 'react';
-import { View, TextInput, Button, Text, StyleSheet } from 'react-native';
-import { collection, addDoc } from 'firebase/firestore';
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import { db } from '../config/firebase';
 import { useAuth } from '../context/AuthContext';
-import { router } from 'expo-router';
 
 
 function generateInviteCode() {
@@ -23,12 +23,12 @@ export default function CreateGroup() {
             return;
         }
         try {
-            const invideCode = generateInviteCode();
+            const inviteCode = generateInviteCode();
             await addDoc(collection(db, 'groups'), {
                 name: groupName,
                 createdBy: user?.uid,
                 members: [user?.uid],
-                invideCode,
+                inviteCode,
                 createdAt: new Date()
             });
             router.replace('/home');
