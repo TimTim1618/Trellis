@@ -21,6 +21,7 @@ export default function RootLayout() {
           <Stack.Screen name="join-group" options={{ headerShown: false}} />
           <Stack.Screen name="group/[id]" options={{ headerShown: false}} />
           <Stack.Screen name="feed/[id]" options={{ headerShown: false}} />
+          <Stack.Screen name="profile" options={{ headerShown: false}} />
         </Stack>
         <StatusBar style="auto" />
       </ThemeProvider>

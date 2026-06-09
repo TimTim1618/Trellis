@@ -60,6 +60,7 @@ export default function Home() {
         )}
         ListEmptyComponent={<Text style={styles.empty}>You have no groups yet.</Text>}
       />
+      <Button title="Profile" onPress={() => router.push('/profile')} />
       <Button title="Create Group" onPress={() => router.push('/create-group')} />
       <Button title="Join Group" onPress={() => router.push('/join-group')} />
       <Button title="Logout" onPress={handleLogout} />

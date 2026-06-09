@@ -3,7 +3,6 @@ import { collection, doc, getDoc, onSnapshot, orderBy, query, where } from 'fire
 import React, { useEffect, useState } from 'react';
 import { Button, FlatList, Image, Modal, Share, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { db } from '../../config/firebase';
-import { useAuth } from '../../context/AuthContext';
 
 type Post = {
   id: string;
@@ -21,7 +20,6 @@ type Group = {
 
 export default function Feed() {
   const { id } = useLocalSearchParams();
-  const { user } = useAuth();
   const [posts, setPosts] = useState<Post[]>([]);
   const [group, setGroup] = useState<Group | null>(null);
   const [menuVisible, setMenuVisible] = useState(false);
