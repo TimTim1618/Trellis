@@ -99,8 +99,7 @@ export default function GroupScreen() {
         numberOfLines={4}
       />
       <Button title={posting ? 'Posting...' : 'Post'} onPress={handlePost} disabled={posting} />
-      <Button title="View Feed" onPress={() => router.push(`/feed/${id}`)} />
-      <Button title="View Feed" onPress={() => router.replace('/home')} />
+      <Button title="Back to Groups" onPress={() => router.replace('/home')} />
       {error ? <Text style={styles.error}>{error}</Text> : null}
     </View>
   );
