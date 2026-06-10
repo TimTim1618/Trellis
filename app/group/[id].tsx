@@ -1,8 +1,8 @@
 import * as ImagePicker from 'expo-image-picker';
 import { router, useLocalSearchParams } from 'expo-router';
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { db, storage } from '../../config/firebase';
 import { useAuth } from '../../context/AuthContext';
@@ -80,6 +80,36 @@ export default function GroupScreen() {
     setPosting(false);
   };
 
+
+  const [alreadyPosted, setAlreadyPosted] = useState(false);
+
+  useEffect(() => {
+    const checkIfPosted = async () => {
+      const today = new Date().toDateString();
+      const q = query(
+        collection(db, 'posts'),
+        where('groupId', '==', id),
+        where('userId', '==', user?.uid),
+        where('date', '==', today)
+      );
+      const snapshot = await getDocs(q);
+      if (!snapshot.empty) {
+        setAlreadyPosted(true);
+      }
+    };
+    checkIfPosted();
+  }, [id, user?.uid]);
+
+  if (alreadyPosted) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.title}>Today Reading</Text>
+        <Text style={styles.alreadyPosted}>You have already posted today. See your tomorrow</Text>
+        <Button title="View Feed" onPress={() => router.replace(`/feed/${id}` as any)} />
+      </View>
+    )
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Today Reading</Text>
@@ -114,4 +144,5 @@ const styles = StyleSheet.create({
   image: { width: '100%', height: '100%', borderRadius: 8 },
   input: { borderWidth: 1, borderColor: '#ccc', padding: 10, marginBottom: 15, borderRadius: 5, height: 100, textAlignVertical: 'top' },
   error: { marginTop: 15, textAlign: 'center', color: 'red' },
+  alreadyPosted: { fontSize: 18, textAlign: 'center', color: '#666666', marginTop: 40, marginBottom: 40 },
 });
