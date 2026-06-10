@@ -64,6 +64,7 @@ export default function GroupScreen() {
         groupId: id,
         userId: user?.uid,
         userEmail: user?.email,
+        displayName: user?.displayName ?? user?.email,
         imageUrl,
         reflection,
         createdAt: new Date(),

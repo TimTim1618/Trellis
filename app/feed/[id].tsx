@@ -7,6 +7,7 @@ import { db } from '../../config/firebase';
 type Post = {
   id: string;
   userEmail: string;
+  displayName: string;
   imageUrl: string;
   reflection: string;
   date: string;
@@ -85,7 +86,7 @@ export default function Feed() {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <View style={styles.postItem}>
-            <Text style={styles.email}>{item.userEmail}</Text>
+            <Text style={styles.email}>{item.displayName ?? item.userEmail}</Text>
             <Image source={{ uri: item.imageUrl }} style={styles.image} />
             <Text style={styles.reflection}>{item.reflection}</Text>
           </View>
